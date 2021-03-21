@@ -1,0 +1,18 @@
+<div class="post-card mb-3">
+    <a href="{{ post.get_absolute_url }}"><h1 class="card-title">{{ post.title|truncatechars:40 }}</h1></a>
+    <a href="{{ post.get_absolute_url }}">
+        {% if post.image %}
+        <img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
+        {% else %}
+        <img class="card-img-top" src="https://www.fapceramiche.com/media/products/images/article/generated_fap_nux_2019_grey_matt_30X60_RT_fON2_wr.jpg.800x800_q85.jpg" alt="Card image cap">
+        {% endif %}
+    </a>
+    <div class="card-body">
+        <p class="card-text">{{ post.body|safe|truncatechars:200 }}</p>
+        <a href="{{ post.get_absolute_url }}" class="btn btn-light">READ</a>
+        <p><small class="text-muted">   {{ post.date_pub|date:'d.m.Y' }}</small></p>
+    </div>
+    <div class="card-footer text-muted">
+        Author: <a href="#">{{ post.author }}</a>
+    </div>
+</div>

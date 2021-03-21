@@ -1,0 +1,14 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+    DJANGO BLOG
+{% endblock %}
+
+{% block content %}
+    {% for post in posts %}
+        {% include 'blog\includes\post_card.html' %}
+    {% endfor %}
+    <div class="main-paginator">
+        {% include 'blog\includes\paginator.html' %}
+    </div>
+{% endblock %}

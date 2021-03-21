@@ -1,0 +1,42 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="container">
+        <h1>{{ post.title }}</h1>
+        <p>by {{ post.author }}</p>
+        <p>Posted on {{ post.date_pub }}</p>
+        {% if post.image %}
+            <img class="img-fluid rounded" src="{{ post.image.url }}" alt="top-image">
+        {% else %}
+            <img class="top-image" src="https://www.fapceramiche.com/media/products/images/article/generated_fap_nux_2019_grey_matt_30X60_RT_fON2_wr.jpg.800x800_q85.jpg" alt="top-image">
+        {% endif %}
+            <div class="lead mt-5">{{ post.body|safe }}</div>
+        {% if post.author == request.user or request.user.is_superuser %}
+            <a class="btn btn-outline-danger mt-2" href="{% url 'post_delete' post.slug %}">Delete post</a>
+        {% endif %}
+        {% if post.author == request.user %}
+            <a class="btn btn-outline-danger mt-2" href="{% url 'post_edit' post.slug %}">Edit</a>
+        {% endif %}
+    </div>
+    <div>
+        <form class="card-text mb-5" action="" method="post">
+            {% csrf_token %}
+            <div class="comment-form form-group">
+                <label for="comment_text">Your comment</label>
+                <textarea class="form-control" id="comment_text" name="comment_text" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline-primary">Post comment</button>
+        </form>
+    </div>
+    {% for comment in post.post_comment.all %}
+        <div class="comments mt-5">
+            {{ comment.author }} <div style="opacity: 0.5;">{{ comment.date_create }}</div>
+            <p class="mt-3">{{ comment.comment_text }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}

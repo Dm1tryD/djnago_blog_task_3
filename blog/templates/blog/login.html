@@ -1,0 +1,17 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block title %}
+    LOGIN
+{% endblock %}
+
+{% block content %}
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for i in form %}
+            <p>{{ i.label }}</p>
+            <p>{{ i }}</p>
+        {% endfor %}
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}
